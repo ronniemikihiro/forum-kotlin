@@ -1,4 +1,4 @@
-package br.com.forumkotlin.controller.dto
+package br.com.forumkotlin.dto
 
 import java.time.LocalDateTime
 

@@ -1,6 +1,6 @@
 package br.com.forumkotlin.mapper
 
-import br.com.forumkotlin.controller.dto.TopicView
+import br.com.forumkotlin.dto.TopicView
 import br.com.forumkotlin.model.Topic
 import org.springframework.stereotype.Component
 

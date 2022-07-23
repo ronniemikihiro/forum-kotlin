@@ -1,25 +1,15 @@
 package br.com.forumkotlin.service
 
 import br.com.forumkotlin.model.Course
+import br.com.forumkotlin.repository.CourseRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-class CourseService(var courses: List<Course> = ArrayList()) {
+class CourseService(private val courseRepository: CourseRepository) {
 
-    init {
-        val course = Course(
-            id = 1,
-            name = "Kotlin",
-            category = "Programação"
-        )
-
-        courses = listOf(course)
-    }
-
-    fun findById(id: Long): Course {
-        return courses.stream().filter { c ->
-            c.id == id
-        }.findFirst().get()
+    fun findById(id: Long): Optional<Course> {
+        return courseRepository.findById(id)
     }
 
 

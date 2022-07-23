@@ -1,25 +1,15 @@
 package br.com.forumkotlin.service
 
 import br.com.forumkotlin.model.UserForum
+import br.com.forumkotlin.repository.UserForumRepository
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
-class UserForumService(var userForums: List<UserForum> = ArrayList()) {
+class UserForumService(private val userForumRepository: UserForumRepository) {
 
-    init {
-        val userForum = UserForum(
-            id = 1,
-            name = "UserForum 1",
-            email = "userForum1@email.com"
-        )
-
-        userForums = listOf(userForum)
-    }
-
-    fun findById(id: Long): UserForum {
-        return userForums.stream().filter { u ->
-            u.id == id
-        }.findFirst().get()
+    fun findById(id: Long): Optional<UserForum> {
+        return userForumRepository.findById(id)
     }
 
 

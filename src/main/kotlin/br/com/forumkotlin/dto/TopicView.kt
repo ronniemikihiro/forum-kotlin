@@ -1,4 +1,4 @@
-package br.com.forumkotlin.controller.dto
+package br.com.forumkotlin.dto
 
 import br.com.forumkotlin.model.StatusTopic
 import java.time.LocalDateTime

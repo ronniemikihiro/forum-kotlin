@@ -1,6 +1,6 @@
 package br.com.forumkotlin.mapper
 
-import br.com.forumkotlin.controller.dto.NewTopicForm
+import br.com.forumkotlin.dto.NewTopicForm
 import br.com.forumkotlin.model.Topic
 import br.com.forumkotlin.service.CourseService
 import br.com.forumkotlin.service.UserForumService
@@ -16,8 +16,8 @@ class TopicFormMapper(
         return Topic(
             title = t.title,
             message = t.message,
-            course = courseService.findById(t.idCourse),
-            author = userForumService.findById(t.idAuthor)
+            course = courseService.findById(t.idCourse).orElse(null),
+            author = userForumService.findById(t.idAuthor).orElse(null)
         )
     }
 

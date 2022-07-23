@@ -1,6 +1,6 @@
 package br.com.forumkotlin.exception
 
-import br.com.forumkotlin.controller.dto.ErrorView
+import br.com.forumkotlin.dto.ErrorView
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler

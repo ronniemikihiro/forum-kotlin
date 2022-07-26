@@ -1,0 +1,1 @@
+update user_forum set password = '$2a$12$1wS2t8pwlK4387FV7uYr1OUkG/7ESNwdRkoIdDi.I0bb3GdMxSLAy' where id = 1 --senha 123

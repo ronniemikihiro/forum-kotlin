@@ -1,0 +1,1 @@
+alter table user_forum add column password varchar(200) not null default ''

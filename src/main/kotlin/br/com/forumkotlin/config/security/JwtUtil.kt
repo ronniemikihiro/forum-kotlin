@@ -41,13 +41,17 @@ class JwtUtil(
     }
 
     @Throws(Exception::class)
-    private fun parseClaimsJws(token: String?): Jws<Claims?>? {
+    private fun parseClaimsJws(
+        token: String?
+    ): Jws<Claims?>? {
         return Jwts.parser()
             .setSigningKey(secret.toByteArray())
             .parseClaimsJws(token)
     }
 
-    fun isValidToken(token: String?): Boolean {
+    fun isValidToken(
+        token: String?
+    ): Boolean {
         return try {
             parseClaimsJws(token)
             true
@@ -56,7 +60,9 @@ class JwtUtil(
         }
     }
 
-    fun getAuthentication(token: String?): Authentication {
+    fun getAuthentication(
+        token: String?
+    ): Authentication {
         val username = parseClaimsJws(token)?.body?.subject
         val userForum = userForumService.loadUserByUsername(username)
         return UsernamePasswordAuthenticationToken(username, null, userForum.authorities)

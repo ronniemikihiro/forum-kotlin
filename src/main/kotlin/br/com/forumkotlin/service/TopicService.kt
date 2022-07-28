@@ -11,6 +11,7 @@ import br.com.forumkotlin.repository.TopicRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDate
 
 @Service
 class TopicService(
@@ -24,38 +25,49 @@ class TopicService(
         nameCourse: String?,
         pageable: Pageable
     ): Page<TopicView> {
-        return if (nameCourse == null) {
-            topicRepository.findAll(pageable)
-        } else {
+        return (nameCourse?.let {
             topicRepository.findByCourseName(nameCourse, pageable)
-        }.map {
+        } ?: let {
+            topicRepository.findAll(pageable)
+        }).map {
             t -> topicViewMapper.map(t)
         }
     }
 
-    fun findById(id: Long): TopicView {
+    fun findById(
+        id: Long
+    ): TopicView {
         return topicRepository.findById(id).map {
             t -> topicViewMapper.map(t)
-        }.orElseThrow { NotFoundException(notFoundMessage) }
+        }.orElseThrow {
+            NotFoundException(notFoundMessage)
+        }
     }
 
-    fun create(newTopicForm: NewTopicForm): TopicView {
+    fun create(
+        newTopicForm: NewTopicForm
+    ): TopicView {
         val topic = topicFormMapper.map(newTopicForm)
         topicRepository.save(topic)
         return topicViewMapper.map(topic)
     }
 
-    fun update(updateTopicForm: UpdateTopicForm): TopicView {
+    fun update(
+        updateTopicForm: UpdateTopicForm
+    ): TopicView {
         val topic = topicRepository.findById(updateTopicForm.id)
             .orElseThrow { NotFoundException(notFoundMessage) }
 
         topic.title = updateTopicForm.title
         topic.message = updateTopicForm.message
+        topic.changeDate = LocalDate.now()
 
         return topicViewMapper.map(topic)
     }
 
-    fun delete(id: Long) {
+    fun delete(
+        id: Long
+    ) {
         topicRepository.findById(id)
             .map { t -> topicRepository.delete(t) }
             .orElseThrow { NotFoundException(notFoundMessage) }

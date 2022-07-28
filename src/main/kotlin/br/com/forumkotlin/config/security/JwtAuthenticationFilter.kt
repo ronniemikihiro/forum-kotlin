@@ -26,7 +26,9 @@ class JwtAuthenticationFilter(
         filterChain.doFilter(request, response)
     }
 
-    private fun getToken(request: HttpServletRequest): String? {
+    private fun getToken(
+        request: HttpServletRequest
+    ): String? {
         val token = request.getHeader("Authorization")
         return token?.let { jwt ->
             jwt.startsWith("Bearer ")

@@ -1,10 +1,12 @@
 package br.com.forumkotlin.controller
 
+import br.com.forumkotlin.config.swagger.SwaggerConfiguration
 import br.com.forumkotlin.dto.NewTopicForm
 import br.com.forumkotlin.dto.TopicForCategoryDTO
 import br.com.forumkotlin.dto.TopicView
 import br.com.forumkotlin.dto.UpdateTopicForm
 import br.com.forumkotlin.service.TopicService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -20,7 +22,10 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/topics")
-class TopicController(private val topicService: TopicService) {
+@SecurityRequirement(name = SwaggerConfiguration.BEARER_AUTH)
+class TopicController(
+    private val topicService: TopicService
+) {
 
     @GetMapping
     @Cacheable("topics")
@@ -51,7 +56,9 @@ class TopicController(private val topicService: TopicService) {
     @PutMapping
     @Transactional
     @CacheEvict(value = ["topics"], allEntries = true)
-    fun update(@RequestBody @Valid updateTopicForm: UpdateTopicForm): ResponseEntity<TopicView> {
+    fun update(
+        @RequestBody @Valid updateTopicForm: UpdateTopicForm
+    ): ResponseEntity<TopicView> {
         val topicView = topicService.update(updateTopicForm)
         return ResponseEntity.ok(topicView)
     }
@@ -60,7 +67,9 @@ class TopicController(private val topicService: TopicService) {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     @CacheEvict(value = ["topics"], allEntries = true)
-    fun delete(@PathVariable id: Long) {
+    fun delete(
+        @PathVariable id: Long
+    ) {
         topicService.delete(id)
     }
 

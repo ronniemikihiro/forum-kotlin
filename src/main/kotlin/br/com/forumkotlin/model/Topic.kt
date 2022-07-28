@@ -1,5 +1,6 @@
 package br.com.forumkotlin.model
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -26,5 +27,7 @@ data class Topic(
     val status: StatusTopic = StatusTopic.NOT_ANSWERED,
 
     @OneToMany(mappedBy = "topic")
-    val answers: List<Answer> = ArrayList()
+    val answers: List<Answer> = ArrayList(),
+
+    var changeDate: LocalDate? = null
 )

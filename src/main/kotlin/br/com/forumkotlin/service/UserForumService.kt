@@ -14,11 +14,15 @@ class UserForumService(
     private val notFoundMessage: String = "User not found"
 ): UserDetailsService {
 
-    fun findById(id: Long): Optional<UserForum> {
+    fun findById(
+        id: Long
+    ): Optional<UserForum> {
         return userForumRepository.findById(id)
     }
 
-    override fun loadUserByUsername(username: String?): UserDetails {
+    override fun loadUserByUsername(
+        username: String?
+    ): UserDetails {
         return userForumRepository.findByEmail(username)
                 .orElseThrow{ NotFoundException(notFoundMessage) }
     }

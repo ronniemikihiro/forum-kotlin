@@ -6,9 +6,13 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CourseService(private val courseRepository: CourseRepository) {
+class CourseService(
+    private val courseRepository: CourseRepository
+) {
 
-    fun findById(id: Long): Optional<Course> {
+    fun findById(
+        id: Long
+    ): Optional<Course> {
         return courseRepository.findById(id)
     }
 
